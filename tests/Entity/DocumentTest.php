@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Document;
+use App\Entity\DocumentType;
 use App\Entity\User;
 use App\Tests\AppTestCase;
 use App\Tests\Fixtures\DocumentBuilder;
@@ -19,5 +20,6 @@ class DocumentTest extends AppTestCase
 
         self::assertNotNull($document->getId());
         self::assertInstanceOf(User::class, $document->getUser());
+        self::assertInstanceOf(DocumentType::class, $document->getDocumentType());
     }
 }

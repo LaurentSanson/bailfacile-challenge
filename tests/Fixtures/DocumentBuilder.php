@@ -11,6 +11,8 @@ class DocumentBuilder extends AbstractBuilder
 {
     private ?User $user;
     private ?DocumentType $documentType;
+    private ?bool $isSigned;
+    private ?bool $isSentByPost;
 
     public function withUser(User $user): self
     {
@@ -26,12 +28,28 @@ class DocumentBuilder extends AbstractBuilder
         return $this;
     }
 
+    public function isSigned(bool $isSigned): self
+    {
+        $this->isSigned = $isSigned;
+
+        return $this;
+    }
+
+    public function isSentByPost(bool $isSentByPost): self
+    {
+        $this->isSentByPost = $isSentByPost;
+
+        return $this;
+    }
+
     public function build(bool $persist = true): Document
     {
         $document = new Document();
 
         $document->setUser($this->user ?? UserBuilder::for($this->testCase)->any());
         $document->setDocumentType($this->documentType ?? DocumentTypeBuilder::for($this->testCase)->withDocuments($document)->build());
+        $document->setIsSigned($this->isSigned);
+        $document->setIsSentByPost($this->isSentByPost);
 
         if ($persist) {
             $this->entityManager->persist($document);
@@ -45,6 +63,8 @@ class DocumentBuilder extends AbstractBuilder
     {
         $this->user = null;
         $this->documentType = null;
+        $this->isSigned = false;
+        $this->isSentByPost = false;
 
         return $this;
     }

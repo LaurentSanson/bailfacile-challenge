@@ -34,6 +34,14 @@ class Document
     #[Groups(['document_list'])]
     private ?DocumentType $documentType;
 
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['document_list'])]
+    private ?bool $isSigned = false;
+
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['document_list'])]
+    private ?bool $isSentByPost = false;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -89,6 +97,30 @@ class Document
     public function setDocumentType(?DocumentType $documentType): self
     {
         $this->documentType = $documentType;
+
+        return $this;
+    }
+
+    public function getIsSigned(): ?bool
+    {
+        return $this->isSigned;
+    }
+
+    public function setIsSigned(bool $isSigned): self
+    {
+        $this->isSigned = $isSigned;
+
+        return $this;
+    }
+
+    public function getIsSentByPost(): ?bool
+    {
+        return $this->isSentByPost;
+    }
+
+    public function setIsSentByPost(bool $isSentByPost): self
+    {
+        $this->isSentByPost = $isSentByPost;
 
         return $this;
     }

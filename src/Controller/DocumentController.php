@@ -89,4 +89,67 @@ class DocumentController extends AbstractController
             ['groups' => 'document_list']
         );
     }
+
+    #[Route('/document/esign', name: 'document_esign', methods: ['POST'])]
+    public function esign(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        if (!$request->query->get('document_id')) {
+            return $this->json(['document_id' => 'document_id is mandatory'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $document = $entityManager->getRepository(Document::class)->find($request->query->get('document_id'));
+        if (!$document) {
+            return $this->json(['document_id' => 'No document with this id'], Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($this->canBeUpdated($document)) {
+            $document->setIsSigned(true);
+        } else {
+            return $this->json(['document_id' => 'This document cannot be e-signed'], Response::HTTP_BAD_REQUEST);
+        }
+
+        return $this->json(
+            $document,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'document_list']
+        );
+    }
+
+    #[Route('/document/delete', name: 'document_delete', methods: ['POST'])]
+    public function delete(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        if (!$request->query->get('document_id')) {
+            return $this->json(['document_id' => 'document_id is mandatory'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $document = $entityManager->getRepository(Document::class)->find($request->query->get('document_id'));
+        if (!$document) {
+            return $this->json(['document_id' => 'No document with this id'], Response::HTTP_BAD_REQUEST);
+        }
+
+        if ($this->canBeDeleted($document)) {
+            $entityManager->remove($document);
+            $entityManager->flush();
+        } else {
+            return $this->json(['document_id' => 'This document is locked'], Response::HTTP_BAD_REQUEST);
+        }
+
+        return $this->json(
+            $document,
+            Response::HTTP_OK,
+            [],
+            ['groups' => 'document_list']
+        );
+    }
+
+    private function canBeUpdated(Document $document): bool
+    {
+        return $document->getDocumentType()?->getCanBeESign() && !$document->getIsSigned();
+    }
+
+    private function canBeDeleted(Document $document): bool
+    {
+        return !$document->getIsSentByPost() && !$document->getIsSigned();
+    }
 }
