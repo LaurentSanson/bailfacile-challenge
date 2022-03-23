@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DocumentRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
 class Document
@@ -12,20 +13,25 @@ class Document
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['document_list'])]
     private int $id;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups(['document_list'])]
     private ?DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups(['document_list'])]
     private ?DateTimeImmutable $updatedAt;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'documents')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['document_list'])]
     private ?User $user;
 
     #[ORM\ManyToOne(targetEntity: DocumentType::class, inversedBy: 'documents')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['document_list'])]
     private ?DocumentType $documentType;
 
     public function __construct()

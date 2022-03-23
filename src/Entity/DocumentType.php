@@ -6,6 +6,7 @@ use App\Repository\DocumentTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DocumentTypeRepository::class)]
 class DocumentType
@@ -13,27 +14,35 @@ class DocumentType
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['document_list'])]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['document_list'])]
     private ?string $name;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['document_list'])]
     private ?string $slug;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['document_list'])]
     private ?string $format;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['document_list'])]
     private ?bool $canBeESign;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['document_list'])]
     private ?bool $canBeSendByMail;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['document_list'])]
     private ?bool $canBeSendByPost;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['document_list'])]
     private ?bool $canBeUpdated;
 
     #[ORM\OneToMany(mappedBy: 'documentType', targetEntity: Document::class)]

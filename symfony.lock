@@ -169,6 +169,9 @@
     "phpstan/extension-installer": {
         "version": "1.1.0"
     },
+    "phpstan/phpdoc-parser": {
+        "version": "1.2.0"
+    },
     "phpstan/phpstan": {
         "version": "1.4.2"
     },
@@ -269,6 +272,18 @@
     },
     "sebastian/version": {
         "version": "3.0.2"
+    },
+    "sensio/framework-extra-bundle": {
+        "version": "6.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
     },
     "symfony/asset": {
         "version": "v6.0.1"
@@ -409,6 +424,12 @@
     "symfony/process": {
         "version": "v6.0.2"
     },
+    "symfony/property-access": {
+        "version": "v6.0.5"
+    },
+    "symfony/property-info": {
+        "version": "v6.0.3"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v6.0.2"
     },
@@ -427,6 +448,9 @@
     },
     "symfony/runtime": {
         "version": "v6.0.0"
+    },
+    "symfony/serializer": {
+        "version": "v6.0.6"
     },
     "symfony/service-contracts": {
         "version": "v3.0.0"

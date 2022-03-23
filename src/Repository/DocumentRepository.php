@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Document;
+use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -45,32 +46,25 @@ class DocumentRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Document[] Returns an array of Document objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findDocumentsGreaterThanCreatedAt(DateTimeImmutable $createdAt): mixed
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
+            ->andWhere('d.createdAt < :val')
+            ->setParameter('val', $createdAt)
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Document
+    public function findDocumentsGreaterThanUpdateddAt(DateTimeImmutable $updatedAt): mixed
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('d.updatedAt < :val')
+            ->setParameter('val', $updatedAt)
+            ->setMaxResults(10)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
     }
-    */
 }
