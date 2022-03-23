@@ -1,5 +1,5 @@
 .DEFAULT_GOAL=help
-project-name := Template
+project-name := Bail Facile Challenge
 
 .PHONY: help
 
@@ -27,15 +27,12 @@ lint: composer.lock.installed composer-validate php-cs-fixer phpstan security-ch
 
 test: composer.lock.installed ## Run test suite
 	php -d xdebug.mode=off -d pcov.enabled=1 ./vendor/bin/paratest
-#	mkdir -p ./build
-#	php -d xdebug.mode=off -dpcov.enabled=1 ./vendor/bin/paratest --coverage-html /build/coverage --coverage-clover /build/clover.xml --log-junit ./build/testreport.xml || true
-#	vendor/bin/coverage-check ./build/clover.xml 90
 
 clean:  ## Reset project to initial state
 	@rm -rf vendor build composer.lock node_modules var public/assets
 
 ## —— Others 🛠️️ ———————————————————————————————————————————————————————————————
-help: ## Liste des commandes
+help: ## Commands
 	@echo -e '\033[0;33m=================================\033[0m'
 	@echo -e '\033[0;33m$(project-name)\033[0m'
 	@echo -e '\033[0;33m=================================\033[0m'

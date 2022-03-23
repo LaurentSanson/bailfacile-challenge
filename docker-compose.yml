@@ -11,15 +11,8 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: "example"
+      MYSQL_DATABASE: "bailfacile"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-
-  maildev:
-    image: maildev/maildev
-    container_name: maildev-container
-    command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
-    ports:
-      - "8081:80"
 
   php:
     build:
@@ -30,7 +23,7 @@ services:
     ports:
       - "9000:9000"
     environment:
-      DATABASE_URL: mysql://root:@localhost:3306/exemple?serverVersion=${MYSQL_VERSION:-13}
+      DATABASE_URL: mysql://root:@mysql-container:3306/bailfacile?serverVersion=${MYSQL_VERSION:-13}
 
   nginx:
     image: nginx:stable-alpine
