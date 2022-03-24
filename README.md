@@ -1,13 +1,12 @@
-# Symfony Docker Template
+# BailFacile Challenge
 
-A [Docker](https://www.docker.com/)-based [Symfony](https://symfony.com) template.
+[BailFacile](https://www.bailfacile.fr/) is an online property management platform serving French landlords. We are building a super app for landlords assisting them in the daily management of long-term rentals : draft and e-sign compliant documents, record payments and outgoings, manage tenant relationships and much more, 100% digitally and for a reasonable cost.
 
 ## Docker containers
 
 1. PHP
 2. MYSQL
 3. NGINX
-4. MAILDEV
 
 ## What's in there
 
@@ -34,6 +33,7 @@ A [Docker](https://www.docker.com/)-based [Symfony](https://symfony.com) templat
 ```bash
 make install #Install the project
 bin/console d:m:m -n #Play the migrations (if there is any)
+bin/console d:f:l -n #Load the fixtures
 ```
 
 2. Open `https://localhost:8000` in your favorite web browser
